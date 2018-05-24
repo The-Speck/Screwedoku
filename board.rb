@@ -1,3 +1,4 @@
+require 'byebug'
 require_relative "tile"
 
 class Board
@@ -19,7 +20,7 @@ class Board
     self.new(tiles)
   end
 
-  def initialize(grid = self.empty_grid)
+  def initialize(grid = Board.empty_grid)
     @grid = grid
   end
 
@@ -39,21 +40,18 @@ class Board
   end
 
   def render
-    puts "  #{(0..8).to_a.join(" ")}"
+    puts "  #{(1..9).to_a.join(" ")}"
     grid.each_with_index do |row, i|
-      puts "#{i} #{row.join(" ")}"
+      puts "#{i+1} #{row.join(" ")}"
     end
   end
-
 
   def size
     grid.size
   end
 
-  alias_method :rows, :size
-
   def solved?
-    rows.all? { |row| solved_set?(row) } &&
+    grid.all? { |row| solved_set?(row) } &&
       columns.all? { |col| solved_set?(col) } &&
       squares.all? { |square| solved_set?(square) }
   end
